@@ -10,3 +10,4 @@ venv/
 *.nix
 *.lock
 *.toml
+*.breakpoints

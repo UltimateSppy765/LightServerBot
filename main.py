@@ -1,6 +1,6 @@
 import os
 import disnake as discord
-from imports.modules import PersistentViews
+from imports.modules import PersistentViews,keep_alive
 from disnake.ext import commands
 
 class PersistentView(commands.Bot):
@@ -22,4 +22,5 @@ async def ping(ctx):
     """Shows the latency of the bot."""
     await ctx.reply(f'Ping is `{round(client.latency*1000)}ms`',mention_author=False)
 
+keep_alive.keep_alive()
 client.run(os.environ['BOT_TOKEN'])

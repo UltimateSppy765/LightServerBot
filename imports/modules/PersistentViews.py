@@ -10,4 +10,13 @@ class ToggleAdmin(discord.ui.View):
 
     @discord.ui.button(custom_id=os.environ['toggle_admin_role'])
     async def adminroletoggle(self,button,itr):
-        await itr.response.send_message('Hello World!',ephemeral=True)
+        if itr.author.id not in json.loads(os.environ['server_admins']):
+            await itr.response.defer()
+            return
+        await itr.response.defer(with_message=True,ephemeral=True)
+        if itr.author.get_role(943965618976210966):
+            await itr.author.remove_roles(943965618976210966)
+            return await itr.edit_original_message(content='Removed <@&943965618976210966>.')
+        else:
+            await itr.author.add_roles(943965618976210966)
+            return await itr.edit_original_message(content='Added <@&943965618976210966>.')

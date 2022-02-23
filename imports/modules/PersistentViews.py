@@ -10,4 +10,4 @@ class ToggleAdmin(discord.ui.View):
 
     @discord.ui.button(custom_id=os.environ['toggle_admin_role'])
     async def adminroletoggle(self,button,itr):
-        await itr.response.send_message('Hello World!')
+        await itr.response.send_message('Hello World!',ephemeral=True)

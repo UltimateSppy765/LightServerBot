@@ -1,5 +1,6 @@
 import os
 import disnake as discord
+from imports.modules import PersistentViews
 from disnake.ext import commands
 
 class PersistentView(commands.Bot):
@@ -8,6 +9,10 @@ class PersistentView(commands.Bot):
         self.persistent_views_added=False
 
     async def on_ready(self):
+        if not self.persistent_views_added:
+            for i in PersistentViews.perviews():
+                self.add_view(i)
+            self.persistent_views_added=True
         print('Bot is ready.')
         print(f'Logged in as {client.user.name} - {client.user.id}')
 

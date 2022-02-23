@@ -1,7 +1,7 @@
 import os
 import disnake as discord
 
-def previews():
+def perviews():
     return [ToggleAdmin()]
 
 class ToggleAdmin(discord.ui.View):

@@ -1,3 +1,4 @@
+import os
 import disnake as discord
 from disnake.ext import commands
 

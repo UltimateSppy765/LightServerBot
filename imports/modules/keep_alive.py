@@ -25,6 +25,10 @@ async def lightserverjoin():
 async def page_not_found(err):
     return redirect('https://http.cat/404')
 
+@app.errorhandler(500)
+async def page_not_found(err):
+    return redirect('https://http.cat/500')
+
 def run():
     app.run(host='0.0.0.0',port=8080)
 

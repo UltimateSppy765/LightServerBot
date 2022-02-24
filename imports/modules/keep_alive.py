@@ -5,15 +5,15 @@ from threading import Thread
 app=Flask('')
 
 @app.route('/')
-def main():
+async def main():
     return render_template('index.html',text="The bot is alive!")
 
 @app.route('/join')
-def joinserver():
+async def joinserver():
     return redirect('https://discord.com/api/oauth2/authorize?client_id=943942461892489296&redirect_uri=https%3A%2F%2Flightserverbot.ultimatesppy765.repl.co%2Flightserver&response_type=code&scope=guilds.join%20identify')
 
 @app.route('/lightserver')
-def lightserverjoin():
+async def lightserverjoin():
     if request.args.get('error')=="access_denied":
         return redirect(os.environ['access_denied_auth'])
     print(err)

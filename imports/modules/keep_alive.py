@@ -1,8 +1,14 @@
-import os
+import os,aiohttp
 from flask import Flask,render_template,redirect,request
 from threading import Thread
 
 app=Flask('')
+
+async def testfetchmember():
+    async with aiohttp.ClientSession() as session:
+         async with session.get('https://discord.com/api/v10/guilds/943965618976210965/members/770542184310243342',headers={"Authorization":f"Bot {os.environ['BOT_TOKEN']}"}) as resp:
+             a=await resp.json()
+    print(a)
 
 @app.route('/')
 async def main():
@@ -21,12 +27,17 @@ async def lightserverjoin():
     print(codee)
     return 
 
+@app.route('/test')
+async def test():
+    await testfetchmember()
+    return "Check Console?"
+
 @app.errorhandler(404)
 async def page_not_found(err):
     return redirect('https://http.cat/404')
 
 @app.errorhandler(500)
-async def page_not_found(err):
+async def internal_server_error(err):
     return redirect('https://http.cat/500')
 
 def run():

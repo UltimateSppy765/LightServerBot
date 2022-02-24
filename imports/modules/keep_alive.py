@@ -14,6 +14,8 @@ def joinserver():
 
 @app.route('/lightserver')
 def lightserverjoin():
+    err=request.args.get('error')
+    print(err)
     codee=request.args.get('code')
     print(codee)
     return 

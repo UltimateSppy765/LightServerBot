@@ -4,7 +4,7 @@ from threading import Thread
 
 app=Flask('')
 
-async def testfetchmember(code:str):
+async def handlejoin(code:str):
     async with aiohttp.ClientSession() as session:
         async with session.post('https://discord.com/api/v10/oauth2/token',headers={'Content-Type':'application/x-www-form-urlencoded'},data={'grant_type':'authorization_code','code':code,'redirect_uri':'https://lightserverbot.ultimatesppy765.repl.co/lightserver'},auth=aiohttp.BasicAuth(os.environ['CLIENT_ID'],os.environ['CLIENT_SECRET'])) as resp:
             somejson1=await resp.json()
@@ -15,10 +15,15 @@ async def testfetchmember(code:str):
             user_id=somejson2['id']
 
         async with session.put(f'https://discord.com/api/v10/guilds/943965618976210965/members/{user_id}',headers={'Authorization':f'Bot {os.environ["BOT_TOKEN"]}'},json={'access_token':atoken,'roles':['944108632088387594']}) as resp:
-            if resp.status==204:
-                return "Member already in server."
-            elif resp.status==201:
-                return await resp.json()
+            ineedthisnumber=resp.status
+
+        async with session.post('https://discord.com/api/v10/oauth2/token/revoke',headers={'Content-Type':'application/x-www-form-urlencoded'},data={'client_id':os.environ['CLIENT_ID'],'client_secret':os.environ['CLIENT_SECRET'],'token':atoken}) as resp:
+            pass
+
+        if ineedthisnumber==201:
+            return "Added you to server."
+        elif ineedthisnumber==204:
+            return "Member is already in server."
 
 @app.route('/')
 async def main():
@@ -32,11 +37,7 @@ async def joinserver():
 async def lightserverjoin():
     if request.args.get('error')=="access_denied":
         return redirect(os.environ['access_denied_auth'])
-    return await testfetchmember(request.args.get('code'))
-
-@app.route('/test')
-async def test():
-    return await testfetchmember(int(request.args.get('user')))
+    return await handlejoin(request.args.get('code'))
 
 @app.errorhandler(404)
 async def page_not_found(err):

@@ -22,7 +22,7 @@ async def lightserverjoin():
     return 
 
 @app.errorhandler(404)
-async def page_not_found():
+async def page_not_found(err):
     return redirect('https://http.cat/404')
 
 def run():

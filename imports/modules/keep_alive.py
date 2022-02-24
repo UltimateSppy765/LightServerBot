@@ -13,19 +13,12 @@ async def testfetchmember(code:str):
         async with session.get('https://discord.com/api/v10/users/@me',headers={'Authorization':f'Bearer {atoken}'}) as resp:
             somejson2=await resp.json()
             user_id=somejson2['id']
-        
-        async with session.get(f'https://discord.com/api/v10/guilds/943965618976210965/members/{user_id}',headers={"Authorization":f"Bot {os.environ['BOT_TOKEN']}"}) as resp:
-            response2=await resp.json()
-            try:
-                if response2['code']==10007:
-                    pass
-                else:
-                    return response2
-            except KeyError:
-                return "Member already in server."
 
-        async with session.put(f'https://discord.com/api/v10/guilds/943965618976210965/members/{user_id}',headers={'Authorization':f'Bearer {atoken}'},json={'roles':['944108632088387594']}) as resp:
-            return "Added to server!"
+        async with session.put(f'https://discord.com/api/v10/guilds/943965618976210965/members/{user_id}',headers={'Authorization':f'Bot {os.environ["BOT_TOKEN"]}'},json={'access_token':atoken,'roles':['944108632088387594']}) as resp:
+            if resp.status==204:
+                return "Member already in server."
+            elif resp.status==201:
+                return await resp.json()
 
 @app.route('/')
 async def main():

@@ -38,4 +38,4 @@ if successnum>0:
     print(f'Successfully loaded {successnum} cog{"s" if successnum>1 else ""}.')
 
 keep_alive.keep_alive()
-#client.run(os.environ['BOT_TOKEN'])
+client.run(os.environ['BOT_TOKEN'])

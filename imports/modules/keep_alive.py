@@ -16,7 +16,7 @@ async def joinserver():
 async def lightserverjoin():
     if request.args.get('error')=="access_denied":
         return redirect(os.environ['access_denied_auth'])
-    print(err)
+    print(request.args.get('error'))
     codee=request.args.get('code')
     print(codee)
     return 

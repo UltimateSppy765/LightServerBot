@@ -23,4 +23,4 @@ async def ping(ctx):
     await ctx.reply(f'Ping is `{round(client.latency*1000)}ms`',mention_author=False)
 
 keep_alive.keep_alive()
-client.run(os.environ['BOT_TOKEN'])
+#client.run(os.environ['BOT_TOKEN'])

@@ -1,4 +1,4 @@
-import os,aiohttp
+import os,aiohttp,json
 from flask import Flask,render_template,redirect,request
 from threading import Thread
 
@@ -14,6 +14,11 @@ async def handlejoin(code:str):
             somejson2=await resp.json()
             user_id=somejson2['id']
 
+        if int(user_id) not in json.loads(os.environ['whitelist'])+json.loads(os.environ['server_admins']):
+            async with session.post('https://discord.com/api/v10/oauth2/token/revoke',headers={'Content-Type':'application/x-www-form-urlencoded'},data={'client_id':os.environ['CLIENT_ID'],'client_secret':os.environ['CLIENT_SECRET'],'token':atoken}) as resp:
+                pass
+            return redirect('https://ultimatesppy765.github.io/LightServerBot/denied')
+        
         async with session.put(f'https://discord.com/api/v10/guilds/943965618976210965/members/{user_id}',headers={'Authorization':f'Bot {os.environ["BOT_TOKEN"]}'},json={'access_token':atoken,'roles':['944108632088387594']}) as resp:
             ineedthisnumber=resp.status
 

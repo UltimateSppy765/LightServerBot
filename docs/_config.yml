@@ -1,1 +1,5 @@
+#Jekyll Configuration
 theme: jekyll-theme-cayman
+name: LightServerBot
+description: Bot for a private server focused on studies.
+markdown: kramdown

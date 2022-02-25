@@ -20,10 +20,8 @@ async def handlejoin(code:str):
         async with session.post('https://discord.com/api/v10/oauth2/token/revoke',headers={'Content-Type':'application/x-www-form-urlencoded'},data={'client_id':os.environ['CLIENT_ID'],'client_secret':os.environ['CLIENT_SECRET'],'token':atoken}) as resp:
             pass
 
-        if ineedthisnumber==201:
-            return "Added you to server."
-        elif ineedthisnumber==204:
-            return "Member is already in server."
+        if ineedthisnumber==201 or ineedthisnumber==204:
+            return redirect('https://discord.com/channels/943965618976210965/943967423923617883')
 
 @app.route('/')
 async def main():

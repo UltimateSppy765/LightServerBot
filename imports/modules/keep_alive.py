@@ -39,10 +39,6 @@ async def lightserverjoin():
         return redirect(os.environ['access_denied_auth'])
     return await handlejoin(request.args.get('code'))
 
-@app.route('/privacy')
-async def ppolicy():
-    return render_template('Privacy-Policy.html')
-
 @app.errorhandler(404)
 async def page_not_found(err):
     return redirect('https://http.cat/404')

@@ -35,4 +35,4 @@ class AnnounceRole(discord.ui.View):
             await itr.edit_original_message(content='You have been granted the permission to send messages in <#944150808864358430> for 30 seconds.')
             await asyncio.sleep(30)
             await itr.author.remove_roles(itr.guild.get_role(944151595023736842),reason='30 seconds complete.')
-            return await itr.followup.send('Your 30 seconds are up, the permissions have been removed.')
+            return await itr.followup.send('Your 30 seconds are up, the permissions have been removed.',ephemeral=True)

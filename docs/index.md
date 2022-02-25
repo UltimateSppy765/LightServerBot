@@ -7,7 +7,10 @@ Light is a private Discord server primarily focused on keeping all study related
 
 # Links:
 Join the Light server (you need to be whitelisted) [here](https://lightserverbot.ultimatesppy765.repl.co/join).
+
 Source code for the bot operating the server can be found [here](https://github.com/UltimateSppy765/LightServerBot/).
+
 For info regarding your privacy while using the OAuth, look [here](https://ultimatesppy765.github.io/LightServerBot/privacy) for more info.
 
+----
 ### Bot is hosted on [repl.it](https://replit.com/).

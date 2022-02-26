@@ -20,10 +20,10 @@ client=PersistentView()
 with open('coglist.json','r') as file:
     data=json.load(file)
 
-@client.command()
-async def ping(ctx):
-    """Shows the latency of the bot."""
-    await ctx.reply(f'Ping is `{round(client.latency*1000)}ms`',mention_author=False)
+@client.event
+async def on_member_join(member):
+    if member.id not in os.environ['whitelist']+os.environ['server_admins']:
+        await member.kick(reason="User not whitelisted.")
 
 successnum=0
 for i in data:

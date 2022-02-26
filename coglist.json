@@ -3,6 +3,6 @@
         "name": "Miscellaneous",
         "description": "Miscellaneous commands.",
         "path": "imports.cogs.Miscellaneous",
-        "load_on_start": false
+        "load_on_start": true
     }
 ]

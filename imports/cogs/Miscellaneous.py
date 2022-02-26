@@ -8,3 +8,6 @@ class Miscellaneous(commands.Cog):
     @commands.slash_command()
     async def ping(self,itr):
         await itr.response.send_message(f'Bot latency is `{round(self.client.latency*1000)}ms`.',ephemeral=True)
+
+def setup(client):
+    client.add_cog(Miscellaneous(client))

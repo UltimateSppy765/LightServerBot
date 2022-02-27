@@ -22,7 +22,7 @@ with open('coglist.json','r') as file:
 
 @client.event
 async def on_member_join(member):
-    if member.id not in json.loads(os.environ['whitelist'])+json.loads(os.environ['server_admins']):
+    if member.id not in json.loads(os.environ['whitelist'])+json.loads(os.environ['server_admins']) and member.bot==False:
         await member.kick(reason="User not whitelisted.")
 
 successnum=0

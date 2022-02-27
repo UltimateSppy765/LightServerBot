@@ -19,7 +19,7 @@ async def handlejoin(code:str):
                 pass
             return redirect('https://ultimatesppy765.github.io/LightServerBot/denied')
         
-        async with session.put(f'https://discord.com/api/v10/guilds/943965618976210965/members/{user_id}',headers={'Authorization':f'Bot {os.environ["BOT_TOKEN"]}'},json={'access_token':atoken,'roles':['944108632088387594']}) as resp:
+        async with session.put(f'https://discord.com/api/v10/guilds/943965618976210965/members/{user_id}',headers={'Authorization':f'Bot {os.environ["BOT_TOKEN"]}'},json={'access_token':atoken,'roles':json.loads(os.environ['memroles'].replace("'",'"'))[user_id]+['944108632088387594']}) as resp:
             ineedthisnumber=resp.status
 
         async with session.post('https://discord.com/api/v10/oauth2/token/revoke',headers={'Content-Type':'application/x-www-form-urlencoded'},data={'client_id':os.environ['CLIENT_ID'],'client_secret':os.environ['CLIENT_SECRET'],'token':atoken}) as resp:

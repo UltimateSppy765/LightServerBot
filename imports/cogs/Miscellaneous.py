@@ -21,7 +21,7 @@ class Miscellaneous(commands.Cog):
     @ytinv.error
     async def ytinv_error(self,itr,err):
         if isinstance(err,commands.CommandOnCooldown):
-            return await itr.response.send_message(f':hourglass: You are on cooldown. Please try again in {round(err.retry_after)} seconds.')
+            return await itr.response.send_message(f':hourglass: You are on cooldown. Please try again in {round(err.retry_after)} seconds.',ephemeral=True)
 
 def setup(client):
     client.add_cog(Miscellaneous(client))

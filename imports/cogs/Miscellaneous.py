@@ -14,9 +14,9 @@ class Miscellaneous(commands.Cog):
     @commands.slash_command(name='yt-start')
     async def ytinv(self,itr,channel:discord.VoiceChannel):
         if channel==itr.guild.afk_channel:
-            return await itr.response.send_message(':x: You cannot start this activity in the Guild's AFK channel.',ephemeral=True)
+            return await itr.response.send_message(':x: You cannot start this activity in the Guild\'s AFK channel.',ephemeral=True)
         inv=await channel.create_invite(max_age=30,max_uses=1,target_type=discord.InviteTarget.embedded_application,target_application=discord.PartyType.watch_together,reason=f'Watch Together invite requested by {str(itr.author)}')
-        await itr.response.send_message(f':postbox: An one time invite has been generated to start Watch Together in {channel.mention}. This is valid for 30 seconds. Do not share this outside the server.\n{inv.url}',ephemeral=True)
+        await itr.response.send_message(f':postbox: A one time invite has been generated to start Watch Together in {channel.mention}. This is valid for 30 seconds. Do not share this outside the server.\n{inv.url}',ephemeral=True)
 
     @ytinv.error()
     async def ytinv_error(self,itr,err):

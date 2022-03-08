@@ -10,7 +10,7 @@ class Miscellaneous(commands.Cog):
     async def ping(self,itr):
         await itr.response.send_message(f'Bot latency is `{round(self.client.latency*1000)}ms`.',ephemeral=True)
 
-    @commands.cooldown(per=15,type=commands.BucketType.member)
+    @commands.cooldown(per=15,rate=1,type=commands.BucketType.member)
     @commands.slash_command(name='start-yt')
     async def ytinv(self,itr,channel:discord.VoiceChannel):
         if channel==itr.guild.afk_channel:

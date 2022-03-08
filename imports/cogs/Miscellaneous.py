@@ -11,7 +11,7 @@ class Miscellaneous(commands.Cog):
         await itr.response.send_message(f'Bot latency is `{round(self.client.latency*1000)}ms`.',ephemeral=True)
 
     @commands.cooldown(per=15,type=commands.BucketType.member)
-    @commands.slash_command(name='yt-start')
+    @commands.slash_command(name='start-yt')
     async def ytinv(self,itr,channel:discord.VoiceChannel):
         if channel==itr.guild.afk_channel:
             return await itr.response.send_message(':x: You cannot start this activity in the Guild\'s AFK channel.',ephemeral=True)

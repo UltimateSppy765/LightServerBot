@@ -97,8 +97,8 @@ class Moderation(commands.Cog):
                 return await itr.edit_original_message(text)
             else:
                 return await itr.response.send_message(text,ephemeral=True)
-        elif isinstance(error,commands.ObjectNotFound):
-            await itr.response.send_message(f':x: There was an error parsing the `{error.argument}` argument. Please check your entry with the format given in the option description before sending the command.',ephemeral=True)
+        elif isinstance(error,commands.ConversionError):
+            return await itr.response.send_message(f':x: The argument `{error.original.argument}` is not a valid Snowflake ID, please enter a valid Snowflake ID.',ephemeral=True)
 
     @wipe.sub_command()
     async def off(self,itr,count:int=20,hidden:bool=False):

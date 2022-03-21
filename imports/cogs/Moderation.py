@@ -97,7 +97,7 @@ class Moderation(commands.Cog):
     @wipe.sub_command()
     async def user(self,itr,user:discord.User,count:int=20,hidden:bool=False):
         await itr.response.defer(ephemeral=hidden)
-        pur=await itr.channel.purge(check=WipeChecks(count=count,user_id=user.id).usercheck,limit=750,before=itr,after=discord.utils.snowflake_time(itr.id)-timedelta(days=14),bulk=True,oldest_first=False)
+        pur=await itr.channel.purge(check=WipeChecks(count=count,user_id=user.id).usercheck,limit=1000,before=itr,after=discord.utils.snowflake_time(itr.id)-timedelta(days=14),bulk=True,oldest_first=False)
         view=Wipedone(followup=itr.followup) if not hidden else None
         await itr.edit_original_message(content=f":broom: Successfully wiped {len(pur)} message{'s' if len(pur)>1 else ''}." if len(pur)>0 else ":negative_squared_cross_mark: No messages were wiped.",view=view)
         if not hidden:
@@ -106,7 +106,7 @@ class Moderation(commands.Cog):
     @wipe.sub_command()
     async def text(self,itr,text:str,user:discord.User=None,count:int=20,hidden:bool=False):
         await itr.response.defer(ephemeral=hidden)
-        pur=await itr.channel.purge(check=WipeChecks(count=count,text=text.strip().lower(),user_id=user.id if user else None).hastextcheck,limit=750,before=itr,after=discord.utils.snowflake_time(itr.id)-timedelta(days=14),bulk=True,oldest_first=False)
+        pur=await itr.channel.purge(check=WipeChecks(count=count,text=text.strip().lower(),user_id=user.id if user else None).hastextcheck,limit=1000,before=itr,after=discord.utils.snowflake_time(itr.id)-timedelta(days=14),bulk=True,oldest_first=False)
         view=Wipedone(followup=itr.followup) if not hidden else None
         await itr.edit_original_message(content=f":broom: Successfully wiped {len(pur)} message{'s' if len(pur)>1 else ''}." if len(pur)>0 else ":negative_squared_cross_mark: No messages were wiped.",view=view)
         if not hidden:

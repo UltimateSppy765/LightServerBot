@@ -130,7 +130,7 @@ class Moderation(commands.Cog):
         if before.created_at>after.created_at:
             return await itr.response.send_message(':x: The `before` parameter cannot contain a message/timeframe after the one in the `after` parameter.',ephemeral=True)
         await itr.response.defer(ephemeral=hidden)
-        pur=await itr.channel.purge(limit=500,bulk=True,oldest_first=False,before=before.created_at if before.created_at<itr.created_at else itr.created_at,after=after.created_at if after.created_at>itr.created_at-timedelta(days=14) else itr.created_at-timedelta(days=14),check=check=WipeChecks(text=match.strip().lower() if match else None,user_id=user.id if user else None).bwcheck)
+        pur=await itr.channel.purge(limit=500,bulk=True,oldest_first=False,before=before.created_at if before.created_at<itr.created_at else itr.created_at,after=after.created_at if after.created_at>itr.created_at-timedelta(days=14) else itr.created_at-timedelta(days=14),check=WipeChecks(text=match.strip().lower() if match else None,user_id=user.id if user else None).bwcheck)
         view=Wipedone(followup=itr.followup) if not hidden else None
         await itr.edit_original_message(content=f":broom: Successfully wiped {len(pur)} message{'s' if len(pur)>1 else ''}." if len(pur)>0 else ":negative_squared_cross_mark: No messages were wiped.",view=view)
         if not hidden:

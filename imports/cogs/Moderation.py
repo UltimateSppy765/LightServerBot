@@ -127,8 +127,8 @@ class Moderation(commands.Cog):
             
     @wipe.sub_command()
     async def between(self,itr,before:discord.Object,after:discord.Object,user:discord.User=None,match:str=None,hidden:bool=False):
-        if before.created_at>after.created_at:
-            return await itr.response.send_message(':x: The `before` parameter cannot contain a message/timeframe after the one in the `after` parameter.',ephemeral=True)
+        if before.created_at<after.created_at:
+            return await itr.response.send_message(':x: The `before` parameter cannot contain a message/timeframe before the one in the `after` parameter.',ephemeral=True)
         await itr.response.defer(ephemeral=hidden)
         pur=await itr.channel.purge(limit=500,bulk=True,oldest_first=False,before=before.created_at if before.created_at<itr.created_at else itr.created_at,after=after.created_at if after.created_at>itr.created_at-timedelta(days=14) else itr.created_at-timedelta(days=14),check=WipeChecks(text=match.strip().lower() if match else None,user_id=user.id if user else None).bwcheck)
         view=Wipedone(followup=itr.followup) if not hidden else None

@@ -1,5 +1,6 @@
 from disnake.ext import commands
 import disnake as discord
+import os,json
 
 class WipeChecks():
     def __init__(self,count:int,user_id:int=None,text:str=None):
@@ -51,17 +52,22 @@ class Wipedone(discord.ui.View):
 class Moderation(commands.Cog):
     def __init__(self,client):
         self.client=client
-
+    
+    def admin_only(self):
+        def predicate(itr):
+            return itr.author.id in json.loads(os.environ['server_admins'])
+        return commands.check(predicate)
+    
     @commands.bot_has_permissions(read_message_history=True,manage_messages=True)
-    @commands.has_permissions(manage_messages=True,read_message_history=True)
+    @admin_only()
     @commands.slash_command()
     async def wipe(self,itr):
         pass
 
     @wipe.error
     async def wipe_error(self,itr,error):
-        if isinstance(error,commands.MissingPermissions):
-            return await itr.response.send_message(':x: You need to have the `Manage Messages` and `Read Message History` permissions in this channel to use this command.',ephemeral=True)
+        if isinstance(error,commands.CheckFailure):
+            return await itr.response.send_message(':x: You cannot use this command.',ephemeral=True)
         elif isinstance(error,commands.BotMissingPermissions):
             strr=''
             for i in error.missing_permissions:

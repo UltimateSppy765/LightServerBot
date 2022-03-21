@@ -1,6 +1,12 @@
 from disnake.ext import commands
 import disnake as discord
+from datetime import timedelta
 import os,json
+
+def admin_only():
+    def predicate(itr):
+        return itr.author.id in json.loads(os.environ['server_admins'])
+    return commands.check(predicate)
 
 class WipeChecks():
     def __init__(self,count:int,user_id:int=None,text:str=None):
@@ -36,7 +42,7 @@ class Wipedone(discord.ui.View):
     def __init__(self,followup):
         self.responded=False
         self.followup=followup
-        super().__init__(timeout=5)
+        super().__init__(timeout=10)
 
     @discord.ui.button(label="Got it!",style=discord.ButtonStyle.green)
     async def wipegotit(self,btn:discord.ui.Button,itr:discord.MessageInteraction):
@@ -52,12 +58,6 @@ class Wipedone(discord.ui.View):
 class Moderation(commands.Cog):
     def __init__(self,client):
         self.client=client
-    
-    def admin_only(self):
-        def predicate(itr):
-            return itr.author.id in json.loads(os.environ['server_admins'])
-        return commands.check(predicate)
-    
     @commands.bot_has_permissions(read_message_history=True,manage_messages=True)
     @admin_only()
     @commands.slash_command()

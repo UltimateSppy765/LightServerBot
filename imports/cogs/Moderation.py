@@ -104,7 +104,7 @@ class Moderation(commands.Cog):
             view.message=await itr.original_message()
 
     @wipe.sub_command()
-    async def hastext(self,itr,text:str,user:discord.User=None,count:int=20,hidden:bool=False):
+    async def text(self,itr,text:str,user:discord.User=None,count:int=20,hidden:bool=False):
         await itr.response.defer(ephemeral=hidden)
         pur=await itr.channel.purge(check=WipeChecks(count=count,text=text.strip().lower(),user_id=user.id if user else None).hastextcheck,limit=500,before=itr,after=discord.utils.snowflake_time(itr.id)-timedelta(days=14),bulk=True,oldest_first=False)
         view=Wipedone(followup=itr.followup) if not hidden else None

@@ -58,6 +58,7 @@ class Wipedone(discord.ui.View):
 class Moderation(commands.Cog):
     def __init__(self,client):
         self.client=client
+        
     @commands.bot_has_permissions(read_message_history=True,manage_messages=True)
     @admin_only()
     @commands.slash_command()

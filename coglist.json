@@ -4,5 +4,11 @@
         "description": "Miscellaneous commands.",
         "path": "imports.cogs.Miscellaneous",
         "load_on_start": true
+    },
+    {
+        "name": "Moderation",
+        "description": "Moderation commands.",
+        "path": "imports.cogs.Moderation",
+        "load_on_start": true
     }
 ]

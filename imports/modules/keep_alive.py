@@ -34,6 +34,10 @@ async def handlejoin(code:str):
 async def main():
     return render_template('index.html',text="The bot is alive!")
 
+@app.route('/dummy')
+async def dummy():
+    return render_template('templates/instaclose.html')
+
 @app.route('/join')
 async def joinserver():
     return redirect('https://discord.com/api/oauth2/authorize?client_id=943942461892489296&redirect_uri=https%3A%2F%2Flightserverbot.ultimatesppy765.repl.co%2Flightserver&response_type=code&scope=guilds.join%20identify')

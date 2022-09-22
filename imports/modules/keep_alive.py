@@ -36,7 +36,7 @@ async def main():
 
 @app.route('/dummy')
 async def dummy():
-    return render_template('templates/instaclose.html')
+    return render_template('instaclose.html')
 
 @app.route('/join')
 async def joinserver():

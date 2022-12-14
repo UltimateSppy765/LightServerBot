@@ -39,12 +39,6 @@ async def main():
 async def dummy():
     return render_template('instaclose.html')
 
-@app.route('/lightserver')
-async def lightserverjoin():
-    if request.args.get('error')=="access_denied":
-        return redirect(os.environ['access_denied_auth'])
-    return await handlejoin(request.args.get('code'))
-
 @app.route('/verify')
 async def roleverify():
     err=request.args.get('error')
@@ -53,7 +47,13 @@ async def roleverify():
         return redirect('https://http.cat/404')
     if request.args.get('error')=="access_denied":
         return redirect(os.environ['access_denied_auth'])
-    if  = request.args.get('code')
+    async with csession as session:
+        async with session.post('https://discord.com/api/v10/oauth2/token',headers={'Content-Type':'application/x-www-form-urlencoded'},data={'grant_type':'authorization_code','code':code,'redirect_uri':'https://lightserverbot.ultimatesppy765.repl.co/verify'},auth=aiohttp.BasicAuth(os.environ['CLIENT_ID'],os.environ['CLIENT_SECRET'])) as resp:
+            somejson1=await resp.json()
+            atoken=somejson1['access_token']
+            rtoken=somejson1['refresh_token']
+            print(atoken)
+            print(rtoken)
 
 @app.errorhandler(404)
 async def page_not_found(err):

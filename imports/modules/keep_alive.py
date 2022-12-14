@@ -3,6 +3,7 @@ from flask import Flask,render_template,redirect,request
 from threading import Thread
 
 app=Flask('')
+csession=aiohttp.ClientSession()
 
 async def handlejoin(code:str):
     async with aiohttp.ClientSession() as session:
@@ -38,15 +39,21 @@ async def main():
 async def dummy():
     return render_template('instaclose.html')
 
-@app.route('/join')
-async def joinserver():
-    return redirect('https://discord.com/api/oauth2/authorize?client_id=943942461892489296&redirect_uri=https%3A%2F%2Flightserverbot.ultimatesppy765.repl.co%2Flightserver&response_type=code&scope=guilds.join%20identify')
-
 @app.route('/lightserver')
 async def lightserverjoin():
     if request.args.get('error')=="access_denied":
         return redirect(os.environ['access_denied_auth'])
     return await handlejoin(request.args.get('code'))
+
+@app.route('/verify')
+async def roleverify():
+    err=request.args.get('error')
+    code=request.args.get('code')
+    if not code or not err:
+        return redirect('https://ultimatesppy765.github.io/LightServerBot/denied')
+    if request.args.get('error')=="access_denied":
+        return redirect(os.environ['access_denied_auth'])
+    if  = request.args.get('code')
 
 @app.errorhandler(404)
 async def page_not_found(err):

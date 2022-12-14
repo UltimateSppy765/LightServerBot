@@ -3,17 +3,6 @@ from flask import Flask,render_template,redirect,request
 from threading import Thread
 
 app=Flask('')
-csession=aiohttp.ClientSession()
-
-async def verifyhandle(code: str):
-    async with csession as session:
-        async with session.post('https://discord.com/api/v10/oauth2/token',headers={'Content-Type':'application/x-www-form-urlencoded'},data={'grant_type':'authorization_code','code':code,'redirect_uri':'https://lightserverbot.ultimatesppy765.repl.co/verify'},auth=aiohttp.BasicAuth(os.environ['CLIENT_ID'],os.environ['CLIENT_SECRET'])) as resp:
-            somejson1=await resp.json()
-            atoken=somejson1['access_token']
-            rtoken=somejson1['refresh_token']
-            print(atoken)
-            print(rtoken)
-            return redirect('https://discord.com/oauth2/authorized')
 
 async def handlejoin(code:str):
     async with aiohttp.ClientSession() as session:
@@ -57,7 +46,14 @@ async def roleverify():
         return redirect('https://http.cat/404')
     if request.args.get('error')=="access_denied":
         return redirect(os.environ['access_denied_auth'])
-    return await verifyhandle(code)
+    async with aiohttp.ClientSession() as session:
+        async with session.post('https://discord.com/api/v10/oauth2/token',headers={'Content-Type':'application/x-www-form-urlencoded'},data={'grant_type':'authorization_code','code':code,'redirect_uri':'https://lightserverbot.ultimatesppy765.repl.co/verify'},auth=aiohttp.BasicAuth(os.environ['CLIENT_ID'],os.environ['CLIENT_SECRET'])) as resp:
+            somejson1=await resp.json()
+            atoken=somejson1['access_token']
+            rtoken=somejson1['refresh_token']
+            print(atoken)
+            print(rtoken)
+            return redirect('https://discord.com/oauth2/authorized')
 
 @app.errorhandler(404)
 async def page_not_found(err):

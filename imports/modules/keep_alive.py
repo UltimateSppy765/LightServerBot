@@ -50,7 +50,7 @@ async def roleverify():
     err=request.args.get('error')
     code=request.args.get('code')
     if not code or not err:
-        return redirect('https://ultimatesppy765.github.io/LightServerBot/denied')
+        return redirect('https://http.cat/404')
     if request.args.get('error')=="access_denied":
         return redirect(os.environ['access_denied_auth'])
     if  = request.args.get('code')
